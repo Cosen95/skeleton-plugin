@@ -1,5 +1,6 @@
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { SkeletonPlugin } = require("./skeleton");
 
 module.exports = {
   mode: "development",
@@ -31,6 +32,12 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+    }),
+    new SkeletonPlugin({
+      staticDir: resolve(__dirname, "dist"),
+      port: 8000,
+      origin: "http://localhost:8000",
+      device: "iPhone 6",
     }),
   ],
 };
