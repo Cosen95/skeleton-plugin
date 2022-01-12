@@ -1,5 +1,8 @@
 const PLUGIN_NAME = "SkeletonPlugin"; // 插件名称
 const Server = require("./Server");
+const Skeleton = require("./Skeleton");
+const { resolve } = require("path");
+const { writeFileSync, readFileSync } = require("fs-extra");
 
 class SkeletonPlugin {
   constructor(options) {
@@ -16,8 +19,12 @@ class SkeletonPlugin {
       await this.skeleton.initialize();
       const skeletonHTML = await this.skeleton.genHTML(this.options.origin);
       console.log("skeletonHTML", skeletonHTML);
+      const originPath = resolve(this.options.staticDir, "index.html");
+      const originHTML = await readFileSync(originPath, "utf8");
+      const finalHTML = originHTML.replace("<!-- skeleton -->", skeletonHTML);
+      await writeFileSync(originPath, finalHTML);
       // 销毁浏览器
-      await this.skeleton.destroy();
+      // await this.skeleton.destroy();
       // await this.server.close();
     });
   }

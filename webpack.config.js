@@ -38,6 +38,13 @@ module.exports = {
       port: 8000,
       origin: "http://localhost:8000",
       device: "iPhone 6",
+      defer: 5000,
+      button: {
+        color: "#EFEFEF",
+      },
+      image: {
+        color: "#EFEFEF",
+      },
     }),
   ],
 };
